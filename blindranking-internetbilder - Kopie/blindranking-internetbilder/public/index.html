@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blindranking Online</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section id="startScreen" class="start-screen">
+      <div class="logo-block">
+        <h1>Blindranking</h1>
+        <p>Ein Bild nach dem anderen. Keine Rücksicht auf spätere Reue.</p>
+      </div>
+
+      <div class="start-grid">
+        <article class="start-card">
+          <h2>Raum erstellen</h2>
+          <label>
+            Dein Name
+            <input id="hostName" maxlength="20" placeholder="Pascal">
+          </label>
+          <label>
+            Thema
+            <input id="themeInput" maxlength="60" placeholder="Die besten Filme">
+          </label>
+          <button id="createButton" class="primary">Raum erstellen</button>
+        </article>
+
+        <article class="start-card">
+          <h2>Raum beitreten</h2>
+          <label>
+            Dein Name
+            <input id="playerName" maxlength="20" placeholder="Alex">
+          </label>
+          <label>
+            Raumcode
+            <input id="roomCodeInput" maxlength="6" placeholder="ABC123">
+          </label>
+          <button id="joinButton" class="primary">Beitreten</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="game-screen hidden">
+      <div id="hostToolbar" class="host-toolbar hidden">
+        <div>
+          <strong id="hostThemeTitle">Blindranking</strong>
+          <span id="hostStatusText"></span>
+        </div>
+        <div class="toolbar-actions">
+          <label class="button primary">
+            Dateien auswählen
+            <input id="imageInput" type="file" accept="image/*" multiple hidden>
+          </label>
+          <div class="url-controls">
+            <input id="imageUrlInput" type="url" placeholder="Bild-Link einfügen">
+            <button id="addUrlButton" class="button">URL hinzufügen</button>
+          </div>
+          <button id="revealButton" class="button reveal">Nächstes Bild zeigen</button>
+          <button id="resetButton" class="button danger">Zurücksetzen</button>
+          <button id="leaveButtonHost" class="button">Verlassen</button>
+        </div>
+      </div>
+
+      <div class="game-layout">
+        <aside class="side-panel">
+          <div class="room-code-card">
+            <span>Raumcode</span>
+            <button id="roomCodeButton" title="Code kopieren">------</button>
+          </div>
+
+          <div class="current-card">
+            <span class="current-label">Aktuelles Bild</span>
+            <div id="currentImage" class="current-image">
+              <div class="image-placeholder">Noch kein Bild</div>
+            </div>
+          </div>
+
+          <div id="internetDropZone" class="internet-drop-zone hidden" tabindex="0">
+            <strong>Bild hier ablegen</strong>
+            <span>oder Bild kopieren und Strg+V drücken</span>
+          </div>
+
+          <div id="playerInfo" class="player-info"></div>
+
+          <button id="leaveButtonPlayer" class="button player-leave hidden">Verlassen</button>
+        </aside>
+
+        <section class="ranking-wrap">
+          <div id="rankingBoard" class="ranking-board"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <template id="imageTemplate">
+    <div class="image-tile" draggable="false">
+      <img alt="Blindranking Bild" draggable="false">
+    </div>
+  </template>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
